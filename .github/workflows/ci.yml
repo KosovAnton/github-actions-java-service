@@ -27,5 +27,20 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      - name: Show runner context
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          GIT_REF: ${{ github.ref }}
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          echo "Event: $EVENT_NAME"
+          echo "Ref: $GIT_REF"
+          echo "GitHub SHA: $GIT_SHA"
+          echo "Checked out SHA: $(git rev-parse HEAD)"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Workspace: $GITHUB_WORKSPACE"
+          uname -a
+          java -version
+
       - name: Build with Gradle Wrapper
         run: ./gradlew build --console=plain
