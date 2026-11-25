@@ -44,3 +44,15 @@ jobs:
 
       - name: Build with Gradle Wrapper
         run: ./gradlew build --console=plain
+  inspect:
+    name: Inspect second runner
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Look for the JAR
+        run: |
+          if [ -d build/libs ]; then
+            ls -lh build/libs
+          else
+            echo "build/libs is absent on this runner"
+          fi
